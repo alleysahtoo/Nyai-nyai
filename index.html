@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+<title>Nyai-Nyai Order</title>
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4e1d2; /* Light brownish background */
+    color: #1a1a1a;
+    padding: 20px;
+    max-width: 640px;
+    margin: auto;
+  }
+
+  .card {
+    background-color: #fff8f0;
+    border-radius: 15px;
+    border: 2px solid #d2691e; /* Orange border */
+    box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+    padding: 25px;
+  }
+
+  h1 {
+    text-align: center;
+    color: #d2691e; /* Orange */
+    margin-bottom: 10px;
+    font-weight: bold;
+    font-size: 2em;
+  }
+
+  h2 {
+    text-align: center;
+    margin-top: 0;
+    color: #b35900; /* Darker orange for contrast */
+    font-size: 1.5em;
+  }
+
+  label {
+    display: block;
+    font-weight: bold;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    font-size: 1em;
+  }
+
+  input[type="text"], input[type="tel"], select {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #d2691e; /* Orange border */
+    border-radius: 8px;
+    font-size: 1em;
+    box-sizing: border-box;
+  }
+
+  input:focus {
+    border-color: #b35900; /* Darker orange on focus */
+    outline: none;
+  }
+
+  .menu {
+    margin-top: 20px;
+    background-color: #fff0e0; /* Light orange */
+    padding: 15px;
+    border-radius: 10px;
+  }
+
+  .item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    font-size: 1em;
+  }
+
+  .item span {
+    font-weight: bold;
+  }
+
+  .qty {
+    width: 60px;
+    padding: 8px;
+    border: 2px solid #d2691e;
+    border-radius: 6px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1em;
+  }
+
+  .total {
+    margin-top: 20px;
+    background-color: #d2691e; /* Orange */
+    color: #fff;
+    padding: 15px;
+    border-radius: 10px;
+    font-size: 1.5em;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  .payment-section {
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  .qr-code {
+    margin: 15px auto;
+    max-width: 250px;
+    width: 80%;
+    border: 2px solid #d2691e;
+    border-radius: 10px;
+  }
+
+  button {
+    width: 100%;
+    padding: 20px;
+    background-color: #b35900; /* Dark orange */
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    font-size: 1.2em;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background-color 0.2s;
+  }
+
+  button:hover {
+    background-color: #8b4700;
+  }
+
+  .footer-note {
+    font-size: 0.9em;
+    color: #555;
+    text-align: center;
+    margin-top: 10px;
+  }
+
+  /* Address section styling */
+  #addressSection {
+    display: none;
+    margin-top: 15px;
+    padding: 15px;
+    background-color: #fff0d0;
+    border-radius: 10px;
+    border: 1px solid #d2691e;
+  }
+
+  @media(max-width: 480px) {
+    body {
+      padding: 10px;
+    }
+    h1 {
+      font-size: 1.8em;
+    }
+    h2 {
+      font-size: 1.3em;
+    }
+    button {
+      padding: 18px;
+      font-size: 1.2em;
+    }
+    .total {
+      font-size: 1.3em;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="card">
+<h1>Nyai-Nyai</h1>
+<h2>Order Form</h2>
+
+<div id="orderContainer">
+  <label for="name">Customer Name</label>
+  <input type="text" id="name" placeholder="Enter your name" />
+
+  <label for="contact">Contact Number</label>
+  <input type="tel" id="contact" placeholder="e.g. 91234567" />
+
+  <div class="menu">
+    <p style="margin-top:0; font-weight:bold;">Items (per kg)</p>
+    <div class="item">
+      <span>Sambal Goreng</span>
+      <input type="number" min="0" value="0" class="qty" id="qtySambal" />
+    </div>
+    <div class="item">
+      <span>Rendang Daging</span>
+      <input type="number" min="0" value="0" class="qty" id="qtyRendang" />
+    </div>
+    <div class="item">
+      <span>Ayam Masak Merah</span>
+      <input type="number" min="0" value="0" class="qty" id="qtyAyam" />
+    </div>
+  </div>
+
+  <label for="delivery">Collection Method</label>
+  <select id="delivery" onchange="toggleAddressSection()">
+    <option value="Pickup">Self Collect (Free)</option>
+    <option value="Delivery">Delivery (+$10)</option>
+  </select>
+  
+  <div id="addressSection">
+    <label for="postalCode">Postal Code</label>
+    <input type="text" id="postalCode" placeholder="Search via postal code" />
+
+    <label for="unitNumber">Unit Number</label>
+    <input type="text" id="unitNumber" placeholder="Enter unit number" />
+
+    <label for="addressLine">Address</label>
+    <input type="text" id="addressLine" placeholder="Enter delivery address" />
+  </div>
+
+  <div class="total" id="totalDisplay">Total: $0.00</div>
+  <input type="hidden" id="totalHidden" />
+
+  <!-- QR code for payment -->
+  <div class="payment-section">
+    <p style="margin:0; font-weight:bold;">Step 1: Pay via QR Code</p>
+    <img src="https://i.postimg.cc/Dmw0bCmH/5f4820d0-9bdb-49e8-9341-0fe6ab58e261.jpg" alt="PayNow QR" class="qr-code" />
+    <p style="font-size:11px;">Screenshot after payment.</p>
+  </div>
+
+  <button type="button" onclick="sendOrder()">Confirm & Send</button>
+  <div class="footer-note">
+    Clicking will open WhatsApp to send your order details.
+  </div>
+</div>
+</form>
+</div>
+
+<script>
+  const qtyInputs = document.querySelectorAll('.qty');
+  qtyInputs.forEach(input => input.addEventListener('input', calculateTotal));
+
+  function toggleAddressSection() {
+    const method = document.getElementById('delivery').value;
+    const addressSection = document.getElementById('addressSection');
+    if (method === 'Delivery') {
+      addressSection.style.display = 'block';
+    } else {
+      addressSection.style.display = 'none';
+    }
+    calculateTotal();
+  }
+
+  function calculateTotal() {
+    const qSambal = parseInt(document.getElementById('qtySambal').value) || 0;
+    const qRendang = parseInt(document.getElementById('qtyRendang').value) || 0;
+    const qAyam = parseInt(document.getElementById('qtyAyam').value) || 0;
+    const baseTotal = (qSambal + qRendang + qAyam) * 40; // per kg prices
+
+    const method = document.getElementById('delivery').value;
+    const deliveryFee = method === 'Delivery' ? 10 : 0;
+
+    const total = baseTotal + deliveryFee;
+    document.getElementById('totalDisplay').innerText = 'Total: $' + total.toFixed(2);
+    document.getElementById('totalHidden').value = total.toFixed(2);
+    return { qSambal, qRendang, qAyam, total, method };
+  }
+
+  function sendOrder() {
+    const { qSambal, qRendang, qAyam, total, method } = calculateTotal();
+
+    const name = document.getElementById('name').value.trim();
+    const contact = document.getElementById('contact').value.trim();
+
+    if (!name || !contact || total === 0) {
+      alert('Please fill in your name, contact, and select at least one item.');
+      return;
+    }
+
+    // If delivery, validate address
+    if (method === 'Delivery') {
+      const postalCode = document.getElementById('postalCode').value.trim();
+      const addressLine = document.getElementById('addressLine').value.trim();
+      const unitNumber = document.getElementById('unitNumber').value.trim();
+
+      if (!postalCode || !addressLine || !unitNumber) {
+        alert('Please fill in all delivery address details.');
+        return;
+      }
+    }
+
+    let items = '';
+    if (qSambal > 0) items += `- Sambal Goreng x${qSambal} kg\n`;
+    if (qRendang > 0) items += `- Rendang Daging x${qRendang} kg\n`;
+    if (qAyam > 0) items += `- Ayam Masak Merah x${qAyam} kg\n`;
+
+    const addressDetails = method === 'Delivery' ? 
+      `Delivery Address: ${document.getElementById('addressLine').value.trim()}, Unit: ${document.getElementById('unitNumber').value.trim()}, Postal: ${document.getElementById('postalCode').value.trim()}` :
+      'Pickup';
+
+    const message = `*NEW ORDER - Nyai-Nyai*\n\n` +
+                    `*Customer:* ${name}\n` +
+                    `*Contact:* ${contact}\n` +
+                    (method === 'Delivery' ? `*Delivery Address:* ${addressDetails}\n` : '') +
+                    `*Items:*\n${items}\n` +
+                    `*Method:* ${method}\n` +
+                    `*Total:* $${total.toFixed(2)}\n\n` +
+                    `_I've paid via QR code, sending screenshot!_`;
+
+    const waNumber = '6588100809'; // Your WhatsApp number
+    const waUrl = `https://wa.me/${waNumber}?text=${encodeURIComponent(message)}`;
+
+    // Open WhatsApp chat with pre-filled message
+    window.open(waUrl, '_blank');
+  }
+
+  // Initialize address section based on default
+  window.onload = () => {
+    toggleAddressSection();
+  };
+</script>
+</body>
+</html>
