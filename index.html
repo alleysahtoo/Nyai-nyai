@@ -78,6 +78,11 @@
     font-weight: bold;
   }
 
+  .price {
+    font-size: 0.9em;
+    color: #555;
+  }
+
   .qty {
     width: 60px;
     padding: 8px;
@@ -184,15 +189,24 @@
     <p style="margin-top:0; font-weight:bold;">Items (per kg)</p>
     <div class="item">
       <span>Sambal Goreng</span>
-      <input type="number" min="0" value="0" class="qty" id="qtySambal" />
+      <div>
+        <span class="price">($40/kg)</span>
+        <input type="number" min="0" value="0" class="qty" id="qtySambal" />
+      </div>
     </div>
     <div class="item">
       <span>Rendang Daging</span>
-      <input type="number" min="0" value="0" class="qty" id="qtyRendang" />
+      <div>
+        <span class="price">($35/kg)</span>
+        <input type="number" min="0" value="0" class="qty" id="qtyRendang" />
+      </div>
     </div>
     <div class="item">
       <span>Ayam Masak Merah</span>
-      <input type="number" min="0" value="0" class="qty" id="qtyAyam" />
+      <div>
+        <span class="price">($30/kg)</span>
+        <input type="number" min="0" value="0" class="qty" id="qtyAyam" />
+      </div>
     </div>
   </div>
 
